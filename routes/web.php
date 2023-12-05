@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Movie;
-use App\Http\Controllers\User;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\Movie@index');
-Route::resource('/movie', 'App\Http\Controllers\Movie');
-Route::resource('/users', 'App\Http\Controllers\User');
+Route::get('/', [MovieController::class, 'index']);
+Route::resource('/movie', 'App\Http\Controllers\MovieController');
+Route::resource('/users', 'App\Http\Controllers\UserController');
+Route::post('/users/process', [UserController::class, 'process'])->name('users.process');
+Route::get('/users/about', [UserController::class, 'about'])->name('users.about');
+
+Route::get('/movies', [MovieController::class, 'showAllMovie'])->name('movie.show.all');
+Route::post('/movies/genre', [MovieController::class, 'genreAjax']);
