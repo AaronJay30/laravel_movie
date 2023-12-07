@@ -96,7 +96,9 @@ class MovieController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $movie = Movie::find($id);
+
+        dd($movie);
     }
 
     /**

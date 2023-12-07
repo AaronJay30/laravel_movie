@@ -29,37 +29,39 @@
                 <h1 class="text-white font-bold text-xl uppercase">Featured Movies</h1>
                 <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                     @foreach ($featuredMovies as $featuredMovie)
-                        <div class=" duration-200 ease-linear group cursor-pointer" data-carousel-item data-carousel-item='active'>
-                            <img src="{{asset('img/posters/'.$featuredMovie['poster']) }}" class="absolute block w-full group-hover:scale-75 duration-300 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                            <div class="absolute bg-[#ff1621bb] shadow-lg px-10 py-4 -bottom-[40%] max-[600px]:-bottom-[70%] group-hover:bottom-0 duration-300 w-full flex flex-col gap-y-4">
-                                <div class="flex flex-row max-[600px]:flex-col border-b-2 border-b-white justify-between items-center">
-                                    <h1 class="text-white font-bold text-3xl max-[600px]:text-lg pb-2 uppercase opacity-100">{{$featuredMovie['title']}}</h1>
-                                    <div class="pb-2 text-lg text-white font-semibold uppercase flex flex-row items-center gap-3">
-                                        <img src="img/popcorn.png" class="w-7"> </img>
-                                        <span class="">{{$featuredMovie['average_rating']}}% Rotten Popcorn</span>
+                        <a href="{{route('movie.show', $featuredMovie['movieID'])}}">
+                            <div class=" duration-200 ease-linear group cursor-pointer" data-carousel-item data-carousel-item='active'>
+                                <img src="{{asset('img/posters/'.$featuredMovie['poster']) }}" class="absolute block w-full group-hover:scale-75 duration-300 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                                <div class="absolute bg-[#ff1621bb] shadow-lg px-10 py-4 -bottom-[40%] max-[600px]:-bottom-[70%] group-hover:bottom-0 duration-300 w-full flex flex-col gap-y-4">
+                                    <div class="flex flex-row max-[600px]:flex-col border-b-2 border-b-white justify-between items-center">
+                                        <h1 class="text-white font-bold text-3xl max-[600px]:text-lg pb-2 uppercase opacity-100">{{$featuredMovie['title']}}</h1>
+                                        <div class="pb-2 text-lg text-white font-semibold uppercase flex flex-row items-center gap-3">
+                                            <img src="img/popcorn.png" class="w-7"> </img>
+                                            <span class="">{{$featuredMovie['average_rating']}}% Rotten Popcorn</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tags max-[600px]:hidden flex flex-row w-full gap-4 items-center">
-                                    <span class="bg-white text-red-900 font-semibold text-md px-2 py-1 rounded-lg hover:bg-red-900 hover:text-white duration-300 cursor-pointer">
-                                        {{$featuredMovie['genre']}}
-                                    </span>
-                                </div>
-                                <div class="flex flex-row flex-wrap w-full gap-x-8 justify-between max-[600px]:hidden">
-                                    <div class="text-md text-white flex flex-row gap-2">
-                                        <h1 class="font-semibold uppercase">Director:</h1>
-                                        <span>{{$featuredMovie['director']}}</span>
+                                    <div class="tags max-[600px]:hidden flex flex-row w-full gap-4 items-center">
+                                        <span class="bg-white text-red-900 font-semibold text-md px-2 py-1 rounded-lg hover:bg-red-900 hover:text-white duration-300 cursor-pointer">
+                                            {{$featuredMovie['genre']}}
+                                        </span>
                                     </div>
-                                    <div class="text-md text-white flex flex-row gap-2">
-                                        <h1 class="font-semibold uppercase">Cast:</h1>
-                                        <span>{{$featuredMovie['cast']}}</span>
+                                    <div class="flex flex-row flex-wrap w-full gap-x-8 justify-between max-[600px]:hidden">
+                                        <div class="text-md text-white flex flex-row gap-2">
+                                            <h1 class="font-semibold uppercase">Director:</h1>
+                                            <span>{{$featuredMovie['director']}}</span>
+                                        </div>
+                                        <div class="text-md text-white flex flex-row gap-2">
+                                            <h1 class="font-semibold uppercase">Cast:</h1>
+                                            <span>{{$featuredMovie['cast']}}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="w-full text-md text-white flex flex-col">
-                                    <h1 class="font-semibold uppercase">Synopsis:</h1>
-                                    <p>{{$featuredMovie['synopsis']}}</p>
+                                    <div class="w-full text-md text-white flex flex-col">
+                                        <h1 class="font-semibold uppercase">Synopsis:</h1>
+                                        <p>{{$featuredMovie['synopsis']}}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
 
                 </div>

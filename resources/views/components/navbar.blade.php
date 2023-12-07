@@ -158,7 +158,7 @@
                 </a>
             </li>
             <li class="text-3xl uppercase duration-300 font-bold hover:text-red-500 hover:bg-white py-10 w-full text-center">
-                <a href="{{route('users.about')}}" class="flex flex-row w-full justify-center items-center gap-4">
+                <a href="" class="flex flex-row w-full justify-center items-center gap-4">
                     <i class='bx bxs-user'></i>
                     <h1>About</h1>
                 </a>
@@ -219,7 +219,7 @@
                 </a>
             </li>
             <li class="text-lg font-normal hover:text-red-500 py-2.5">
-                <a href="{{route('users.about')}}">
+                <a href="">
                     <h1>About</h1>
                 </a>
             </li>

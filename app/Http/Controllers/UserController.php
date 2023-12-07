@@ -78,7 +78,7 @@ class UserController extends Controller
 
     public function about()
     {
-        return view('Users.register');
+        return view('Users.about');
     }
 
     /**
