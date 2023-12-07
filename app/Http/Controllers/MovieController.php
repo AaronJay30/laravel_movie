@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -97,8 +98,20 @@ class MovieController extends Controller
     public function show(string $id)
     {
         $movie = Movie::find($id);
+        $review = Review::where('movieID', '=', $id)->get();
 
-        dd($movie);
+        $ratingsCount = array();
+        $totalReviewCount = 0;
+
+        for ($rating = 1; $rating <= 5; $rating++) {
+            $reviewQuery = Review::where('movieID', $id)->where('rating', $rating)->get();
+
+            $ratingsCount[$rating] = $reviewQuery->count();
+            $totalReviewCount += $ratingsCount[$rating];
+        }
+
+
+        return view('Movies.movieInfo')->with(compact('movie', 'review', 'ratingsCount', 'totalReviewCount'));
     }
 
     /**

@@ -1,22 +1,5 @@
 @include('partials.__header', ['title' => 'Rotten Popcorn'])
 
-
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        width: 100vw;
-        overflow-x: hidden;
-        background-image: url('img/bg-image.jpg');
-        background-size: cover;
-        font-family: 'Gabarito', sans-serif;
-    }
-</style>
-
 <x-navbar/>
 
 
@@ -70,7 +53,7 @@ $(document).ready(function() {
                             </div>
                             <div class="px-6 pt-6 pb-4 flex flex-col">
                                 <div class="flex items-center justify-between mb-3 group-hover:text-red-600 duration-300 border-b-[1px] pb-2">
-                                    <a href="movie_info.php?id=` + data['movieID'] + `">
+                                    <a href="{{ route('movie.show', ['movie' => ':movieID']) }}">
                                         <h5 class="block font-sans text-lg antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
                                         ` + data['title'] + ` - ` + data['year'] + `
                                         </h5>
@@ -87,14 +70,17 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="px-6 pb-6">
-                                <a href="movie_info.php?id=` + data['movieID'] + `">
+                                <a href="{{ route('movie.show', ['movie' => ':movieID']) }}">
                                     <button class="block w-full select-none rounded-lg bg-red-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:scale-110 duration-300" type="button" data-ripple-light="true">
                                         More Info!
                                     </button>
                                 </a>
+
                             </div>
                         </div>
                     </div>`;
+
+                    div = div.replace(':movieID', data['movieID']);
         });
 
         $('#second-layer').html(div);

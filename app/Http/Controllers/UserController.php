@@ -81,6 +81,11 @@ class UserController extends Controller
         return view('Users.about');
     }
 
+    public function contact()
+    {
+        return view('Users.contact');
+    }
+
     /**
      * Display the specified resource.
      */

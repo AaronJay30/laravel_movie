@@ -2,6 +2,20 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&display=swap');
 
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            width: 100vw;
+            overflow-x: hidden;
+            background-image: url("public/img/bg-image.jpg");
+            background-size: cover;
+            font-family: 'Gabarito', sans-serif;
+        }
+
     ::-webkit-scrollbar {
         width: 5px;
     }
@@ -127,26 +141,10 @@
     }
 </style>
 
-<?php
-// if (isset($_COOKIE['userID'])) {
-//     $profileDB = new myDB();
-
-//     $userID = $_COOKIE['userID'];
-//     $profileDB->select('user', '*', " userID = $userID");
-
-//     $profile = $profileDB->res;
-
-//     $picture = $profile[0]['profile_picture'];
-//     $email = $profile[0]['email'];
-//     $username = $profile[0]['username'];
-// }
-
-?>
-
 <!-- BURGER MENU -->
 <div class="absolute left-[-3000px] z-10 h-full w-full duration-500 ease-in-out flex flex-col items-center" id='sidebar'>
     <div class="w-full flex justify-end border-b-4 border-b-white px-10 pt-4 ">
-        <img src="img/RottenPopCorn(Text).png" alt="Rotten Popcorn" class="h-20 hover:scale-110 duration-300">
+        <img src="{{asset('img/RottenPopCorn(Text).png')}}" alt="Rotten Popcorn" class="h-20 hover:scale-110 duration-300">
     </div>
 
     <div class="flex flex-col justify-between w-full h-full">
@@ -158,7 +156,7 @@
                 </a>
             </li>
             <li class="text-3xl uppercase duration-300 font-bold hover:text-red-500 hover:bg-white py-10 w-full text-center">
-                <a href="" class="flex flex-row w-full justify-center items-center gap-4">
+                <a href="{{route('users.about')}}" class="flex flex-row w-full justify-center items-center gap-4">
                     <i class='bx bxs-user'></i>
                     <h1>About</h1>
                 </a>
@@ -171,7 +169,7 @@
             </li>
             @auth
                 <li class="text-3xl uppercase duration-300 font-bold hover:text-red-500 hover:bg-white py-10 w-full text-center">
-                    <a href="" class="flex flex-row w-full justify-center items-center gap-4">
+                    <a href="{{route('users.contact')}}" class="flex flex-row w-full justify-center items-center gap-4">
                         <i class="bx bxs-cog"></i>
                         <h1>Settings</h1>
                     </a>
@@ -205,8 +203,8 @@
 
 
     <a href="{{route('movie.index')}}" class="logo-container">
-        <img src="img/RottenPopCorn(Text).png" alt="Rotten Popcorn" class="h-20 max-[600px]:hidden">
-        <img src="img/RottenPopCorn(Logo).png" alt="Rotten Popcorn" class="h-20 max-[600px]:block hidden">
+        <img src="{{asset('img/RottenPopCorn(Text).png')}}" alt="Rotten Popcorn" class="h-20 max-[600px]:hidden">
+        <img src="{{asset('img/RottenPopCorn(Logo).png')}}" alt="Rotten Popcorn" class="h-20 max-[600px]:block hidden">
     </a>
 
     <div class="flex flex-row gap-8 items-center relative z-10">
@@ -219,17 +217,17 @@
                 </a>
             </li>
             <li class="text-lg font-normal hover:text-red-500 py-2.5">
-                <a href="">
+                <a href="{{route('users.about')}}">
                     <h1>About</h1>
                 </a>
             </li>
             <li class="text-lg font-normal hover:text-red-500 py-2.5">
-                <a href="">
+                <a href="{{route('users.contact')}}">
                     <h1>Contacts</h1>
                 </a>
             </li>
             @auth
-                <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="left-start" class="max-[600px]:hidden w-10 h-10 rounded-full cursor-pointer" src="{{asset('img/profile/default.jpg')}}">
+                <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="left-start" class="max-[600px]:hidden w-10 h-10 rounded-full cursor-pointer" src="{{asset('img/profile/' . Auth::user()->profile_picture)}}">
 
             @else
                 <li class="text-lg font-semibold hover:text-red-500 bg-white text-black px-8 py-2.5 rounded-full hover:bg-black">
@@ -277,13 +275,4 @@
     window.addEventListener('focus', () => {
         document.title = "Rotten Popcorn";
     })
-
-    function logout() {
-        // Set the cookie expiration time to a past date to delete the cookie
-        document.cookie = 'userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        document.cookie = 'role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
-        // Redirect to the sign-in page or any other appropriate page
-        window.location.href = 'index.php'; // Change 'signin.php' to your actual sign-in page
-    }
 </script>
