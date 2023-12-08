@@ -108,7 +108,7 @@ $(document).ready(function() {
     $('#movieSearch').on('keyup input', function() {
         var searchInput = $('#movieSearch').val();
         var genreSelect = $('#genreSelect').val();
- 
+
         $.ajax({
             url: "/movies/genre",
             method: "POST",

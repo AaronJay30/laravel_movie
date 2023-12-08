@@ -31,5 +31,5 @@ class Movie extends Model
         'total_review_count',
     ];
 
-    public $timestamps = 'false';
+    public $timestamps = false;
 }

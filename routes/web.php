@@ -29,3 +29,7 @@ Route::get('/contact', [UserController::class, 'contact'])->name('users.contact'
 
 Route::get('/movies', [MovieController::class, 'showAllMovie'])->name('movie.show.all');
 Route::post('/movies/genre', [MovieController::class, 'genreAjax']);
+
+Route::get('/admin', [MovieController::class, 'adminIndex'])->name('admin.index');
+Route::get('/admin_movie', [MovieController::class, 'adminMovie'])->name('admin.admin_movie');
+Route::post('/admin/movie/ajax', [MovieController::class, 'adminMovieAjax']);

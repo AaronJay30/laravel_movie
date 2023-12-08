@@ -90,6 +90,35 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'director' => 'required',
+            'cast' => 'required',
+            'year' => 'required',
+            'genre' => 'required',
+            'synopsis' => 'required',
+            'file' => 'file|required|mimes:jpg,png,jpeg,webp'
+        ]);
+
+        $filename = "";
+        if($request->hasFile('file')) {
+            $filename = $validatedData['title'] . '.' . $request->file->extension();
+
+            $request->file->move(public_path('/img/posters/'), $filename);
+        }
+
+        $movie = Movie::create([
+            'title' => $validatedData['title'],
+            'director' => $validatedData['director'],
+            'synopsis' => $validatedData['synopsis'],
+            'year' => $validatedData['year'],
+            'cast' => $validatedData['cast'],
+            'genre' => $validatedData['genre'],
+            'poster' => $filename,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -136,5 +165,29 @@ class MovieController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // ADMIN
+    public function adminIndex() {
+        return view('Admin.admin');
+    }
+
+    public function adminMovieAjax(Request $request) {
+        if($request->boolean('showMovie')) {
+            $movies = Movie::all();
+            return response()->json(['movie' => $movies]);
+        } elseif ($request->boolean('deleteMovie')) {
+            $movieID = $request['movieID'];
+            $movies = Movie::findOrFail($movieID)->delete();
+            return response()->json(['movie' => $movies]);
+        } elseif ($request->boolean('searchMovies')) {
+            $query = $request['query'];
+            $movies = Movie::where('title', 'LIKE', '%' . $query . '%')->get();
+            return response()->json(['movie' => $movies]);
+        } 
+    }
+
+    public function adminMovie() {
+        return view('Admin.admin_movie');
     }
 }
