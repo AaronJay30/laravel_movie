@@ -35,5 +35,6 @@ Route::post('/movies/genre', [MovieController::class, 'genreAjax']);
 Route::post('/review/ajax', [ReviewController::class, 'reviewAjax']);
 
 Route::get('/admin', [MovieController::class, 'adminIndex'])->name('admin.index');
-Route::get('/admin_movie', [MovieController::class, 'adminMovie'])->name('admin.admin_movie');
 Route::post('/admin/movie/ajax', [MovieController::class, 'adminMovieAjax']);
+
+Route::get('/admin_movie/{movieID}', [MovieController::class, 'adminMovie'])->name('admin.admin_movie');

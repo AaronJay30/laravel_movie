@@ -162,29 +162,32 @@
             error: function(error) {
                 alert("Oops something went wrong!");
             }
-            
         })
     }
 
     function showMovies(result) {
         var div = ``;
-                result.forEach(function(data) {
-                    div += `
-                    <div class="w-full max-w-sm bg-[#F0EAD6] border border-gray-200 rounded-lg shadow group">
-                        <div class="relative w-full">
-                            <img class="p-3 rounded-t-lg relative z-0 group-hover:blur-sm duration-100" src="./img/posters/` + data['poster'] + ` " alt="Movie Poster" />
-                            <div class="absolute w-full py-5 flex flex-row gap-y-2 items-center justify-evenly duration-300 bottom-1 opacity-0 group-hover:bottom-[35%] group-hover:opacity-100">
-                                <button onclick="window.location.href='admin_movie.php?movieID=` + data['movieID'] + `'" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base p-2.5 text-center inline-flex items-center"><i class='bx bx-edit bx-sm'></i></button>
-                                <button onclick="sweetAlertDelete(` + data['movieID'] + `)" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-base p-2.5 text-center inline-flex items-center"><i class='bx bx-trash bx-sm'></i></button>
-                            </div>
-                        </div>
-                        <div class="px-2 pb-4">
-                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-900 text-center"> ` + data['title'] + ` (` + data['year'] + `) </h5>
-                        </div>
-                    </div>`;
-                });
+            result.forEach(function(data) {
+                div += `
+                <div class="w-full max-w-sm bg-[#F0EAD6] border border-gray-200 rounded-lg shadow group">
+                    <div class="relative w-full">
+                        <img class="p-3 rounded-t-lg relative z-0 group-hover:blur-sm duration-100" src="./img/posters/` + data['poster'] + ` " alt="Movie Poster" />
+                        <div class="absolute w-full py-5 flex flex-row gap-y-2 items-center justify-evenly duration-300 bottom-1 opacity-0 group-hover:bottom-[35%] group-hover:opacity-100">`;
 
-                $('#movieCard').html(div);
+                        div+= `
+                            <button onclick="getMovie( `+ data['movieID'] + `)" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base p-2.5 text-center inline-flex items-center"><i class='bx bx-edit bx-sm'></i></button>`;
+
+                        div+=`
+                            <button onclick="sweetAlertDelete(` + data['movieID'] + `)" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-base p-2.5 text-center inline-flex items-center"><i class='bx bx-trash bx-sm'></i></button>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-4">
+                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-900 text-center"> ` + data['title'] + ` (` + data['year'] + `) </h5>
+                    </div>
+                </div>`;
+            });
+
+            $('#movieCard').html(div);
     }
 
     function deleteMovie(movieID) {
@@ -269,6 +272,11 @@
             }
         });
     }
+
+    function getMovie(id) {
+        window.location.href = "{{ route('admin.admin_movie', ':id') }}".replace(':id', id);
+    }
+
 </script>
 
 @include('partials.__footer')

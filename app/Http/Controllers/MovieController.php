@@ -189,7 +189,10 @@ class MovieController extends Controller
         } 
     }
 
-    public function adminMovie() {
-        return view('Admin.admin_movie');
+    public function adminMovie($movieID) {
+
+        $movie=Movie::findOrFail($movieID);
+
+        return view('Admin.admin_movie')->with(compact('movie', 'movieID'));
     }
 }

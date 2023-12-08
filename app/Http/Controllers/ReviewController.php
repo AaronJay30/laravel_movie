@@ -15,6 +15,8 @@ class ReviewController extends Controller
             $movieID = $request->movieID;
             $review = Review::with('user', 'movie')->where('movieID', $movieID)->get();
             return response()->json(['review' => $review]);
+        } elseif ($request->boolean('hideReview')) {
+
         } elseif ($request->boolean('addReview')) {
 
             // dd($request->datas);
