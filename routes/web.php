@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MovieController::class, 'index']);
 Route::resource('/movie', 'App\Http\Controllers\MovieController');
 Route::resource('/users', 'App\Http\Controllers\UserController');
+Route::resource('/reviews', 'App\Http\Controllers\ReviewController');
+
+
 Route::post('/users/process', [UserController::class, 'process'])->name('users.process');
 
 

@@ -176,42 +176,37 @@
                             </footer>
                             <p class="mb-2 text-gray-400 text-justify">Thank you for providing your review of the movie. Your feedback is greatly appreciated.Thank you for providing your review of the movie. Your feedback is greatly appreciated.</p>
                         </article>
-                        <article class="py-4 border-b">
-                            <div class="flex items-center mb-4 space-x-4">
-                                <img class="w-10 h-10 rounded-full" src="{{asset('img/profile/default.png')}}" alt="">
-                                <div class="space-y-1 font-medium text-white">
-                                    <p>AaronJay<time datetime="2014-08-16 19:00" class="block text-sm text-gray-400">Joined on 06-01-2002</time></p>
-                                </div>
-                            </div>
-                            <div class="flex items-center mb-1">
-                                <h3 class=" text-md font-bold text-white">Amazing!!!</h3>
-                            </div>
-                            <footer class="mb-5 text-sm text-gray-400">
-                                <p>Reviewed on <time datetime="2017-03-03 19:00">12/23/20023</time></p>
-                            </footer>
-                            <p class="mb-2 text-gray-400 text-justify">Thank you for providing your review of the movie. Your feedback is greatly appreciated.Thank you for providing your review of the movie. Your feedback is greatly appreciated.</p>
-                        </article>
-                        <article class="py-4 border-b">
-                            <div class="flex items-center mb-4 space-x-4">
-                                <img class="w-10 h-10 rounded-full" src="{{asset('img/profile/default.png')}}" alt="">
-                                <div class="space-y-1 font-medium text-white">
-                                    <p>AaronJay<time datetime="2014-08-16 19:00" class="block text-sm text-gray-400">Joined on 06-01-2002</time></p>
-                                </div>
-                            </div>
-                            <div class="flex items-center mb-1">
-                                <h3 class=" text-md font-bold text-white">Amazing!!!</h3>
-                            </div>
-                            <footer class="mb-5 text-sm text-gray-400">
-                                <p>Reviewed on <time datetime="2017-03-03 19:00">12/23/20023</time></p>
-                            </footer>
-                            <p class="mb-2 text-gray-400 text-justify">Thank you for providing your review of the movie. Your feedback is greatly appreciated.Thank you for providing your review of the movie. Your feedback is greatly appreciated.</p>
-                        </article>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $('document').on('ready', function(){
+        loadReview();
+    });
+
+    function loadReview(){
+        $.ajax({
+            url: "/reviews",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data: {
+                'showReview': true,
+            },
+            success: function(result) {
+                showMovies(result['movie']);
+            },
+            error: function(error) {
+                alert("Oops something went wrong!");
+            }
+        })
+    }
+</script>
 
 
 @include('partials.__footer')
