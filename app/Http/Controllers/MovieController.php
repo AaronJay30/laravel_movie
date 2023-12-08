@@ -51,7 +51,7 @@ class MovieController extends Controller
     public function genreAjax(Request $request)
     {
         if ($request->boolean('showMovie')) {
-            $movies = Movie::all();
+            $movies = Movie::with('user')->get();
             return response()->json(['movie' => $movies]);
         }
         if ($request->boolean('filterMovie')) {
@@ -129,6 +129,8 @@ class MovieController extends Controller
         $movie = Movie::find($id);
         $review = Review::where('movieID', '=', $id)->get();
 
+        $movieID = $id;
+
         $ratingsCount = array();
         $totalReviewCount = 0;
 
@@ -140,7 +142,7 @@ class MovieController extends Controller
         }
 
 
-        return view('Movies.movieInfo')->with(compact('movie', 'review', 'ratingsCount', 'totalReviewCount'));
+        return view('Movies.movieInfo')->with(compact('movie', 'review', 'ratingsCount', 'totalReviewCount', 'movieID'));
     }
 
     /**

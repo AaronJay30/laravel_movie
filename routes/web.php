@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,10 @@ Route::get('/about', [UserController::class, 'about'])->name('users.about');
 Route::get('/contact', [UserController::class, 'contact'])->name('users.contact');
 
 Route::get('/movies', [MovieController::class, 'showAllMovie'])->name('movie.show.all');
+
+
 Route::post('/movies/genre', [MovieController::class, 'genreAjax']);
+Route::post('/review/ajax', [ReviewController::class, 'reviewAjax']);
 
 Route::get('/admin', [MovieController::class, 'adminIndex'])->name('admin.index');
 Route::get('/admin_movie', [MovieController::class, 'adminMovie'])->name('admin.admin_movie');

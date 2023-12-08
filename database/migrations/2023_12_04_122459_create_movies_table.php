@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('genre')->nullable();
             $table->string('poster')->nullable();
             $table->longText('synopsis')->nullable();
-            $table->integer('year')->nullable();
+            $table->string('year')->nullable();
             $table->integer('average_rating')->default(0);
             $table->integer('total_review_count')->default(0);
         });

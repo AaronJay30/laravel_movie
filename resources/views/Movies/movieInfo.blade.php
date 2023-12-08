@@ -161,21 +161,7 @@
                 <div class="mt-10 gap-y-4 max-h-[800px] overflow-y-auto divide-y">
                     <h1 class="text-2xl font-bold text-white col-span-2 mb-4">Reviews</h1>
                     <div class="grid grid-cols-2 gap-x-8" id="reviewSection">
-                        <article class="py-4 border-b">
-                            <div class="flex items-center mb-4 space-x-4">
-                                <img class="w-10 h-10 rounded-full" src="{{asset('img/profile/default.png')}}" alt="">
-                                <div class="space-y-1 font-medium text-white">
-                                    <p>AaronJay<time datetime="2014-08-16 19:00" class="block text-sm text-gray-400">Joined on 06-01-2002</time></p>
-                                </div>
-                            </div>
-                            <div class="flex items-center mb-1">
-                                <h3 class=" text-md font-bold text-white">Amazing!!!</h3>
-                            </div>
-                            <footer class="mb-5 text-sm text-gray-400">
-                                <p>Reviewed on <time datetime="2017-03-03 19:00">12/23/20023</time></p>
-                            </footer>
-                            <p class="mb-2 text-gray-400 text-justify">Thank you for providing your review of the movie. Your feedback is greatly appreciated.Thank you for providing your review of the movie. Your feedback is greatly appreciated.</p>
-                        </article>
+                        
                     </div>
                 </div>
             </div>
@@ -184,28 +170,163 @@
 </div>
 
 <script>
-    $('document').on('ready', function(){
+    $(document).ready(function() {
         loadReview();
     });
+    
+
+    function showReview(result){
+        var datas = result;
+        var div = ``;
+
+        datas.forEach(function(data) {
+            const inputDate = new Date(data['user']['created_at']);
+            const reviewDate = new Date(data['user']['review_date']);
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            };
+            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(inputDate);
+            const reviewFormattedDate = new Intl.DateTimeFormat('en-US', options).format(inputDate);
+
+
+            // Dynamically generate star icons based on the 'rating' value
+            const rating = data['rating'];
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < rating) {
+                    stars += `<svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>`;
+                } else {
+                    stars += `<svg class="w-4 h-4 text-gray-300 dark:text-gray-500 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>`;
+                }
+            }
+
+
+            div += `<article class="py-4 border-b">
+                        <div class="flex items-center mb-4 space-x-4">` ;
+
+                            
+            div += `<img class="w-10 h-10 rounded-full" src="{{asset('img/profile/${data.user.profile_picture}')}}" alt="">`;
+
+
+
+            div +=  `<div class="space-y-1 font-medium text-white">
+                        <p>` + data['user']['username'] + `<time datetime="2014-08-16 19:00" class="block text-sm text-gray-400">Joined on ` + formattedDate + `</time></p>
+                    </div>
+                </div>
+                <div class="flex items-center mb-1">
+                    ` + stars + `
+                    <h3 class="ml-2 text-sm font-semibold text-white">` + data['review_subject'] + `</h3>
+                </div>
+                <footer class="mb-5 text-sm text-gray-400">
+                    <p>Reviewed on <time datetime="2017-03-03 19:00">` + reviewFormattedDate + `</time></p>
+                </footer>
+                <p class="mb-2 text-gray-400 text-justify">` + data['review_text'] + `</p>
+            </article>`
+        });
+
+        $('#reviewSection').html(div);
+    }
+
 
     function loadReview(){
         $.ajax({
-            url: "/reviews",
+            url: "/review/ajax",
             method: "POST",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             data: {
                 'showReview': true,
+                'movieID': {{$movieID}},
             },
             success: function(result) {
-                showMovies(result['movie']);
+                showReview(result['review']);
+                // console.log(result['review']);
             },
             error: function(error) {
                 alert("Oops something went wrong!");
             }
         })
     }
+
+    $("#reviewForm").on("submit", function(e) {
+        e.preventDefault();
+        var datas = $(this).serializeArray();
+        var datas_array = {};
+        $.map(datas, function(data, cnt) {
+            datas_array[data['name']] = data['value'];
+        });
+
+        const goodSubjects = [
+            "Engaging Plot",
+            "Stunning Cinematography",
+            "Outstanding Performances",
+            "Thrilling Plot Twists",
+            "Director's Vision Shines",
+            "Amazing Soundtrack",
+            "Lasting Impact",
+            "Fantastic Special Effects",
+            "Great Character Development",
+            "Spot-On Humor"
+        ];
+
+        const badSubjects = [
+            "Confusing Plot",
+            "Dreadful Acting",
+            "Absurd Storyline",
+            "Laughable Special Effects",
+            "Boring and Endless",
+            "Cheesy Dialogue",
+            "Worst Ending Ever",
+            "Regrettable Experience",
+            "Overrated and Disappointing",
+            "Unwatchable"
+        ];
+
+        const stars = datas_array['stars'];
+        const reviewSubject = stars > 3 ? getRandomItem(goodSubjects) : getRandomItem(badSubjects);
+
+        datas_array['review_subject'] = reviewSubject;
+        datas_array['userID'] = {{Auth::user()->userID}};
+
+        // console.log(datas_array);
+
+        $.ajax({
+            url: "/review/ajax",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data: {
+                "addReview": true,
+                "datas": datas_array
+            },
+            success: function(result) {
+                // console.log(result);
+                loadReviews();
+                $("#reviewForm")[0].reset();
+            },
+            error: function(error) {
+                console.log(error);
+                alert("Oops, something went wrong");
+            }
+        })
+
+        // console.log(datas)
+    })
+
+
+    function getRandomItem(array) {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return array[randomIndex];
+    }
+   
 </script>
 
 
