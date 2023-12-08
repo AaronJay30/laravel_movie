@@ -71,7 +71,7 @@
                 <!-- Leave a comment -->
                 @auth
                     @if(!$review->contains('userID', Auth::user()->userID))
-                        <div class="flex flex-col mt-4 gap-y-4 border-b-2 pb-8">
+                        <div class="flex flex-col mt-4 gap-y-4 border-b-2 pb-8" id="con1">
                             <h1 class="text-2xl font-bold text-white">Leave a review</h1>
 
                             <form id="reviewForm">
@@ -127,7 +127,7 @@
                             </form>
                         </div>
                     @else
-                    <div class="w-full text-center text-xl mt-10 text-white">Thank you for providing your review of the movie. Your feedback is greatly appreciated! 😊 </div>
+                    <div class="w-full text-center text-xl mt-10 text-white" id="con2">Thank you for providing your review of the movie. Your feedback is greatly appreciated! 😊 </div>
                     @endif
                 @else
                     <div class="w-full text-center text-xl mt-8 text-white">To leave a comment, you are required to <a href="{{route('users.index')}}" class="text-red-400 hover:underline">login</a> to your account. </div>
@@ -243,7 +243,7 @@
             },
             data: {
                 'showReview': true,
-                'movieID': {{$movieID}},
+                'movieID': {{$movieID}},  
             },
             success: function(result) {
                 showReview(result['review']);
@@ -264,29 +264,29 @@
         });
 
         const goodSubjects = [
-            "Engaging Plot",
-            "Stunning Cinematography",
-            "Outstanding Performances",
-            "Thrilling Plot Twists",
-            "Director's Vision Shines",
-            "Amazing Soundtrack",
-            "Lasting Impact",
-            "Fantastic Special Effects",
+            "Good plot twist, Unpredictable!",
+            "Outstanding cinematography and editing",
+            "MOVIE OF THE YEAR!",
+            "BEST ACTOOOR!",
+            "The director is witty",
+            "Amazing soundtrack and vfx!",
+            "Best movie ever!",
+            "Family Moviiiee!!",
             "Great Character Development",
-            "Spot-On Humor"
+            "Best in Humooor!"
         ];
 
         const badSubjects = [
-            "Confusing Plot",
-            "Dreadful Acting",
-            "Absurd Storyline",
-            "Laughable Special Effects",
-            "Boring and Endless",
+            "Terrible ending!",
+            "The female lead is a whore!!",
+            "So fucking bad! like bad bad!",
+            "OVERRATEEED!",
+            "NO BRAINER MOVIE!",
             "Cheesy Dialogue",
-            "Worst Ending Ever",
-            "Regrettable Experience",
-            "Overrated and Disappointing",
-            "Unwatchable"
+            "TRASHHH!!",
+            "MEEOW MEEOW!",
+            "Actors are bad!",
+            "WEEEEEE! WEEEEEE!"
         ];
 
         const stars = datas_array['stars'];
@@ -309,8 +309,11 @@
             },
             success: function(result) {
                 // console.log(result);
-                loadReviews();
+                loadReview();
                 $("#reviewForm")[0].reset();
+                $('#con1').hide();
+                $('#con2').show();
+
             },
             error: function(error) {
                 console.log(error);
@@ -318,6 +321,7 @@
             }
         })
 
+        // location.reload();
         // console.log(datas)
     })
 

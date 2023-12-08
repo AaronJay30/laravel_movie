@@ -51,7 +51,7 @@ class MovieController extends Controller
     public function genreAjax(Request $request)
     {
         if ($request->boolean('showMovie')) {
-            $movies = Movie::with('user')->get();
+            $movies = Movie::all();
             return response()->json(['movie' => $movies]);
         }
         if ($request->boolean('filterMovie')) {
@@ -102,7 +102,7 @@ class MovieController extends Controller
         ]);
 
         $filename = "";
-        if($request->hasFile('file')) {
+        if ($request->hasFile('file')) {
             $filename = $validatedData['title'] . '.' . $request->file->extension();
 
             $request->file->move(public_path('/img/posters/'), $filename);
@@ -170,12 +170,14 @@ class MovieController extends Controller
     }
 
     // ADMIN
-    public function adminIndex() {
+    public function adminIndex()
+    {
         return view('Admin.admin');
     }
 
-    public function adminMovieAjax(Request $request) {
-        if($request->boolean('showMovie')) {
+    public function adminMovieAjax(Request $request)
+    {
+        if ($request->boolean('showMovie')) {
             $movies = Movie::all();
             return response()->json(['movie' => $movies]);
         } elseif ($request->boolean('deleteMovie')) {
@@ -186,12 +188,13 @@ class MovieController extends Controller
             $query = $request['query'];
             $movies = Movie::where('title', 'LIKE', '%' . $query . '%')->get();
             return response()->json(['movie' => $movies]);
-        } 
+        }
     }
 
-    public function adminMovie($movieID) {
+    public function adminMovie($movieID)
+    {
 
-        $movie=Movie::findOrFail($movieID);
+        $movie = Movie::findOrFail($movieID);
 
         return view('Admin.admin_movie')->with(compact('movie', 'movieID'));
     }
