@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('userID');
             $table->integer('rating');
             $table->string('review_subject');
+            $table->string('flags')->default("Show");
             $table->longText('review_text');
             $table->date('review_date');
 

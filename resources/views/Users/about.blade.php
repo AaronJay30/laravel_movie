@@ -112,12 +112,24 @@
                 <span class="group-hover:text-white duration-100">Arjay Hagid</span>
                 <p class="group-hover:text-white duration-100">Support Specialist</p>
             </div>
-            <a class="button group-hover:text-white" href="#">Folow</a>
+            <a class="button group-hover:text-white" href="https://www.facebook.com/TYG.ArKaDaTa">Folow</a>
 
             <div class="flex flex-row flex-wrap z-10 gap-4">
-                <i class='bx bxl-facebook text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
-                <i class='bx bxl-discord-alt text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
-                <i class='bx bxl-github text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
+                <i class='bx bxl-facebook text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer' data-tooltip-target="tooltip-no-arrow1FB">
+                    <div id="tooltip-no-arrow1FB" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        Arjay Hagid
+                    </div>
+                </i>
+                <i class='bx bxl-discord-alt text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'data-tooltip-target="tooltip-no-arrow1DC">
+                    <div id="tooltip-no-arrow1DC" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        RJ45
+                    </div>
+                </i>
+                <i class='bx bxl-github text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'data-tooltip-target="tooltip-no-arrow1GIT">
+                    <div id="tooltip-no-arrow1GIT" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        Arjay-boop
+                    </div>
+                </i>
             </div>
 
         </div>
@@ -129,12 +141,24 @@
                 <span class="group-hover:text-white duration-100">Jayne Vernice Ramos</span>
                 <p class="group-hover:text-white duration-100">Support Specialist</p>
             </div>
-            <a class="button group-hover:text-white" href="#">Folow</a>
+            <a class="button group-hover:text-white" href="https://www.facebook.com/itsjaynevernice">Folow</a>
 
             <div class="flex flex-row flex-wrap z-10 gap-4">
-                <i class='bx bxl-facebook text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
-                <i class='bx bxl-discord-alt text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
-                <i class='bx bxl-github text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
+                <i class='bx bxl-facebook text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer' data-tooltip-target="tooltip-no-arrow2FB">
+                    <div id="tooltip-no-arrow2FB" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        Jayne Vernice
+                    </div>
+                </i>
+                <i class='bx bxl-discord-alt text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'data-tooltip-target="tooltip-no-arrow2DC">
+                    <div id="tooltip-no-arrow2DC" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        cosmicrevelry
+                    </div>
+                </i>
+                <i class='bx bxl-github text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'data-tooltip-target="tooltip-no-arrow2GIT">
+                    <div id="tooltip-no-arrow2GIT" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        cosmicrevelry
+                    </div>
+                </i>
             </div>
 
         </div>
@@ -146,12 +170,24 @@
                 <span class="group-hover:text-white duration-100">Aaron Jay Gabato</span>
                 <p class="group-hover:text-white duration-100">Support Specialist</p>
             </div>
-            <a class="button group-hover:text-white" href="#">Folow</a>
+            <a class="button group-hover:text-white" href="https://www.facebook.com/gabato.aaron30">Folow</a>
 
             <div class="flex flex-row flex-wrap z-10 gap-4">
-                <i class='bx bxl-facebook text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
-                <i class='bx bxl-discord-alt text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
-                <i class='bx bxl-github text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'></i>
+                <i class='bx bxl-facebook text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer' data-tooltip-target="tooltip-no-arrow3FB">
+                    <div id="tooltip-no-arrow3FB" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        Aaron Jay Gabato
+                    </div>
+                </i>
+                <i class='bx bxl-discord-alt text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'data-tooltip-target="tooltip-no-arrow3DC">
+                    <div id="tooltip-no-arrow3DC" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        AaronJay30
+                    </div>
+                </i>
+                <i class='bx bxl-github text-3xl group-hover:text-white duration-100 hover:scale-110 cursor-pointer'data-tooltip-target="tooltip-no-arrow3GIT">
+                    <div id="tooltip-no-arrow3GIT" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white  rounded-lg shadow-sm opacity-0 tooltip w-auto whitespace-nowrap bg-gray-900">
+                        Waddles
+                    </div>
+                </i>
             </div>
 
         </div>

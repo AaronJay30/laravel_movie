@@ -24,6 +24,7 @@ class Review extends Model
         'rating',
         'review_text',
         'review_date',
+        'flags',
 
     ];
 

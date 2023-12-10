@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class MovieController extends Controller
 {
@@ -118,7 +119,7 @@ class MovieController extends Controller
             'poster' => $filename,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with(['message' => "You've successfully added " . $movie->title]);;
     }
 
     /**
@@ -158,7 +159,43 @@ class MovieController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'director' => 'required',
+            'cast' => 'required',
+            'year' => 'required',
+            'genre' => 'required',
+            'synopsis' => 'required',
+        ]);
+
+        $movie = Movie::findOrFail($id);
+
+        $movie->update([
+            "title" => $validatedData['title'],
+            "director" => $validatedData['director'],
+            "cast" => $validatedData['cast'],
+            "year" => $validatedData['year'],
+            "genre" => $validatedData['genre'],
+            "synopsis" => $validatedData['synopsis'],
+        ]);
+
+        $filename = "";
+        if ($request->hasFile('file')) {
+            // Delete old image
+            $oldImagePath = public_path('/img/posters/') . $movie->poster;
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
+
+            // Upload new image
+            $filename = $validatedData['title'] . '.' . $request->file->extension();
+            $movie->poster = $filename;
+            $request->file->move(public_path('/img/posters/'), $filename);
+        }
+
+        $movie->save();
+
+        return redirect()->back()->with(['message' => "You've successfully updated " . $movie->title]);
     }
 
     /**

@@ -1,4 +1,4 @@
-@include('partials.__header', ['title' => 'Rotten Popcorn'])
+@include('partials.__header', ['title' => 'All Movies | Rotten Popcorn'])
 
 <x-navbar/>
 
@@ -69,18 +69,13 @@ $(document).ready(function() {
 
                             </div>
                             
-                            <div class="px-6 pb-6">
-                                <a href="{{ route('movie.show', ['movie' => ':movieID']) }}">
-                                    <button class="block w-full select-none rounded-lg bg-red-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:scale-110 duration-300" type="button" data-ripple-light="true">
-                                        More Info!
-                                    </button>
-                                </a>
-
+                            <div class="px-6 pb-6">`;
+                div += ` <button onclick="showMovie( `+ data['movieID'] + `)" class="block w-full select-none rounded-lg bg-red-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:scale-110 duration-300" type="button" data-ripple-light="true">
+                                    More Info!
+                                </button>
                             </div>
                         </div>
                     </div>`;
-
-                    div = div.replace(':movieID', data['movieID']);
         });
 
         $('#second-layer').html(div);
@@ -152,6 +147,10 @@ $(document).ready(function() {
             }
         })
     })
+
+    function showMovie(id) {
+        window.location.href = "{{ route('movie.show', ':id') }}".replace(':id', id);
+    }
 </script>
 
 

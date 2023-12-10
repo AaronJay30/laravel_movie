@@ -106,8 +106,8 @@
                     </label>
                 </div>
                 <div class="w-full">
-                    <label for="message" class="block mb-2 text-sm font-medium text-white text-xl">Your message</label>
-                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-white bg-red-900/100 rounded-lg border border-gray-300 focus:ring-red-500 focus:border-red-500 text-xl" placeholder="Write your thoughts here..."></textarea>
+                    <label for="message" class="block mb-2 font-medium text-white text-xl">Your message</label>
+                    <textarea id="message" rows="4" class="block p-2.5 w-full text-white bg-red-900/100 rounded-lg border border-gray-300 focus:ring-red-500 focus:border-red-500 text-xl" placeholder="Write your thoughts here..."></textarea>
 
                 </div>
 

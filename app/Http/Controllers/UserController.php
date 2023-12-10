@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -69,6 +71,9 @@ class UserController extends Controller
 
         if (auth()->attempt($validated)) {
             $request->session()->regenerate();
+            if (auth()->user()->role === 'Admin') {
+                return redirect('/admin')->with('message', 'Welcome back admin!');
+            }
 
             return redirect('/')->with('message', 'Welcome back!');
         }
@@ -84,6 +89,11 @@ class UserController extends Controller
     public function contact()
     {
         return view('Users.contact');
+    }
+
+    public function profile()
+    {
+        return view('Users.profile');
     }
 
     /**
@@ -107,7 +117,71 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dt = new Carbon();
+        $before = $dt->subYears(12)->format('Y-m-d');
+
+        $validatedData = $request->validate([
+            "username" => [
+                "required",
+                "min:6",
+                Rule::unique('users')->ignore(Auth::user()->userID, 'userID'),
+            ],
+            "birthday" => "required|date|before: " . $before,
+            "email" => [
+                "required",
+                "email",
+                Rule::unique('users')->ignore(Auth::user()->userID, 'userID'),
+            ],
+        ], [
+            "birthday.before" => "You must be above 12 years old to register",
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            "username" => $validatedData['username'],
+            "birthday" => $validatedData['birthday'],
+            "email" => $validatedData['email'],
+        ]);
+
+        $filename = "";
+        if ($request->hasFile('file')) {
+            // Delete old image
+            $oldImagePath = public_path('/img/profile/') . $user->username;
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
+
+            // Upload new image
+            $filename = $validatedData['username'] . '.' . $request->file->extension();
+            $user->profile_picture = $filename;
+            $request->file->move(public_path('/img/profile/'), $filename);
+        }
+
+        // Save the user model
+        $user->save();
+
+        // dd($user);
+        if (Auth::user()->role == 'Admin') {
+            return redirect('/admin')->with(['message' => "You've successfully updated your profile!"]);
+        } else {
+            return redirect()->back()->with(['message' => "You've successfully updated your profile!"]);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $email = null;
+        if ($request->session()->has('login_email') && $request->session()->pull('remember')) {
+            $email = $request->session()->pull('login_email');
+        }
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with(['message' => 'Logout successful']);
     }
 
     /**

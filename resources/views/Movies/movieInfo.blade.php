@@ -86,7 +86,13 @@
                                             <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-900 hover:bg-red-800">
                                                 Post review
                                             </button>
-                                            <img class="w-10 h-10 p-1 rounded-full bg-white" src="{{asset('img/profile/'. Auth::user()->profile_picture)}}" alt="Bordered avatar">
+                                            @if(filter_var(Auth::user()->profile_picture, FILTER_VALIDATE_URL) !== false)
+                                                <img class="w-10 h-10 p-1 rounded-full bg-white" src="{{Auth::user()->profile_picture}}" alt="Bordered avatar">
+                                                
+                                            @else
+                                                <img class="w-10 h-10 p-1 rounded-full bg-white" src="{{asset('img/profile/'. Auth::user()->profile_picture)}}" alt="Bordered avatar">
+                                            
+                                            @endif
                                         </div>
                                         <div class="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
                                             <div class="rating">
@@ -211,7 +217,15 @@
                         <div class="flex items-center mb-4 space-x-4">` ;
 
                             
-            div += `<img class="w-10 h-10 rounded-full" src="{{asset('img/profile/${data.user.profile_picture}')}}" alt="">`;
+            // Assuming data.user.profile_picture is either a link or a filename
+            const profilePictureSrc = data.user.profile_picture.startsWith('http') 
+                ? data.user.profile_picture // It's a link
+                : `{{ asset('img/profile/${data.user.profile_picture}') }}`; // It's a filename
+
+            const imageElement = `<img class="w-10 h-10 rounded-full" src="${profilePictureSrc}" alt="">`;
+
+            // Add the imageElement to your div
+            div += imageElement;
 
 
 
@@ -257,72 +271,71 @@
 
     $("#reviewForm").on("submit", function(e) {
         e.preventDefault();
-        var datas = $(this).serializeArray();
-        var datas_array = {};
-        $.map(datas, function(data, cnt) {
-            datas_array[data['name']] = data['value'];
-        });
+        @auth
+            var datas = $(this).serializeArray();
+            var datas_array = {};
+            $.map(datas, function(data, cnt) {
+                datas_array[data['name']] = data['value'];
+            });
+            const goodSubjects = [
+                "Good plot twist, Unpredictable!",
+                "Outstanding cinematography and editing",
+                "MOVIE OF THE YEAR!",
+                "BEST ACTOOOR!",
+                "The director is witty",
+                "Amazing soundtrack and vfx!",
+                "Best movie ever!",
+                "Family Moviiiee!!",
+                "Great Character Development",
+                "Best in Humooor!"
+            ];
 
-        const goodSubjects = [
-            "Good plot twist, Unpredictable!",
-            "Outstanding cinematography and editing",
-            "MOVIE OF THE YEAR!",
-            "BEST ACTOOOR!",
-            "The director is witty",
-            "Amazing soundtrack and vfx!",
-            "Best movie ever!",
-            "Family Moviiiee!!",
-            "Great Character Development",
-            "Best in Humooor!"
-        ];
+            const badSubjects = [
+                "Terrible ending!",
+                "The female lead is a whore!!",
+                "So fucking bad! like bad bad!",
+                "OVERRATEEED!",
+                "NO BRAINER MOVIE!",
+                "Cheesy Dialogue",
+                "TRASHHH!!",
+                "MEEOW MEEOW!",
+                "Actors are bad!",
+                "WEEEEEE! WEEEEEE!"
+            ];
 
-        const badSubjects = [
-            "Terrible ending!",
-            "The female lead is a whore!!",
-            "So fucking bad! like bad bad!",
-            "OVERRATEEED!",
-            "NO BRAINER MOVIE!",
-            "Cheesy Dialogue",
-            "TRASHHH!!",
-            "MEEOW MEEOW!",
-            "Actors are bad!",
-            "WEEEEEE! WEEEEEE!"
-        ];
+            const stars = datas_array['stars'];
+            const reviewSubject = stars > 3 ? getRandomItem(goodSubjects) : getRandomItem(badSubjects);
 
-        const stars = datas_array['stars'];
-        const reviewSubject = stars > 3 ? getRandomItem(goodSubjects) : getRandomItem(badSubjects);
+            datas_array['review_subject'] = reviewSubject;
+            datas_array['userID'] = {{Auth::user()->userID}};
 
-        datas_array['review_subject'] = reviewSubject;
-        datas_array['userID'] = {{Auth::user()->userID}};
+            // console.log(datas_array);
 
-        // console.log(datas_array);
+            $.ajax({
+                url: "/review/ajax",
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: {
+                    "addReview": true,
+                    "datas": datas_array
+                },
+                success: function(result) {
+                    // console.log(result);
+                    loadReview();
+                    $("#reviewForm")[0].reset();
+                    $('#con1').hide();
+                    $('#con2').show();
 
-        $.ajax({
-            url: "/review/ajax",
-            method: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            },
-            data: {
-                "addReview": true,
-                "datas": datas_array
-            },
-            success: function(result) {
-                // console.log(result);
-                loadReview();
-                $("#reviewForm")[0].reset();
-                $('#con1').hide();
-                $('#con2').show();
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert("Oops, something went wrong");
+                }
+            })
 
-            },
-            error: function(error) {
-                console.log(error);
-                alert("Oops, something went wrong");
-            }
-        })
-
-        // location.reload();
-        // console.log(datas)
+        @endauth
     })
 
 

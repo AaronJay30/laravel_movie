@@ -13,10 +13,28 @@ class ReviewController extends Controller
     {
         if ($request->boolean('showReview')) {
             $movieID = $request->movieID;
+            $review = Review::with('user', 'movie')->where('movieID', $movieID)->where('flags', 'Show')->get();
+            return response()->json(['review' => $review]);
+        } elseif ($request->boolean('adminShowReview')) {
+            $movieID = $request->movieID;
             $review = Review::with('user', 'movie')->where('movieID', $movieID)->get();
             return response()->json(['review' => $review]);
-        } elseif ($request->boolean('hideReview')) {
+        } elseif ($request->boolean('removeSpoiler')) {
+            $reviewID = $request->reviewID;
 
+            $review = Review::findOrFail($reviewID);
+            $review->flags = "Show";
+            $review->save();
+
+            return response()->json(['review' => $review]);
+        } elseif ($request->boolean('addSpoiler')) {
+            $reviewID = $request->reviewID;
+
+            $review = Review::findOrFail($reviewID);
+            $review->flags = "Spoiler";
+            $review->save();
+
+            return response()->json(['review' => $review]);
         } elseif ($request->boolean('addReview')) {
 
             // dd($request->datas);

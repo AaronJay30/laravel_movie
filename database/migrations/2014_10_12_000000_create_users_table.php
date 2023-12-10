@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('userID');
             $table->string('username');
+            $table->string('socialiteID')->nullable();
             $table->date('birthday');
             $table->string('role');
             $table->string('profile_picture')->default("default.png");

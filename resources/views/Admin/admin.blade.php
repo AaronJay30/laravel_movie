@@ -30,9 +30,9 @@
                         <img id="profileImage" class="w-full mx-auto rounded-2xl mb-4" src="img/RottenPopCorn(Logo).png" alt="Extra large avatar">
 
                         <label for="profile" class="flex flex-col gap-y-4 justify-center items-center w-full">
-                            <h1 class="px-4 text-center py-2.5 rounded-xl bg-blue-700 cursor-pointer text-white hover:bg-blue-900 duration-200 w-full">Change Photo</h1>
+                            <h1 class="px-4 text-center py-2.5 rounded-xl bg-red-700 cursor-pointer text-white hover:bg-red-900 duration-200 w-full">Change Photo</h1>
                         </label>
-                        <input type="file" id="profile" name="file" class="hidden" form="addMovieForm">
+                        <input type="file" accept=".png, .jpg, .jpeg, .webp" id="profile" name="file" class="hidden" form="addMovieForm">
                         @error('file')
                             <span class="text-red-800 text-sm mt-2"> 
                                 {{$message}}
@@ -48,7 +48,7 @@
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
                                 <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Movie Title</label>
-                                <input type="text" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Title">
+                                <input type="text" value="{{old('title')}}" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Title">
                                 @error('title')
                                     <span class="text-red-800 text-sm mt-2"> 
                                         {{$message}}
@@ -57,7 +57,7 @@
                             </div>
                             <div>
                                 <label for="director" class="block mb-2 text-sm font-medium text-gray-900">Movie Director</label>
-                                <input type="text" id="director" name="director" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Director">
+                                <input type="text" value="{{old('director')}}" id="director" name="director" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Director">
                                 @error('director')
                                     <span class="text-red-800 text-sm mt-2"> 
                                         {{$message}}
@@ -66,7 +66,7 @@
                             </div>
                             <div>
                                 <label for="Cast" class="block mb-2 text-sm font-medium text-gray-900">Movie Cast</label>
-                                <input type="text" name="cast" id="Cast" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Cast">
+                                <input type="text" value="{{old('cast')}}" name="cast" id="Cast" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Cast">
                                 @error('cast')
                                     <span class="text-red-800 text-sm mt-2"> 
                                         {{$message}}
@@ -75,7 +75,7 @@
                             </div>
                             <div>
                                 <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Movie Year Release</label>
-                                <input type="number" id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Release">
+                                <input type="number" value="{{old('year')}}" id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Release">
                                 @error('year')
                                     <span class="text-red-800 text-sm mt-2"> 
                                         {{$message}}
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-span-2">
                                 <label for="genre" class="block mb-2 text-sm font-medium text-gray-900">Movie Genre</label>
-                                <input type="text" id="genre" name="genre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Genre">
+                                <input type="text" value="{{old('genre')}}" id="genre" name="genre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" placeholder="Movie Genre">
                                 @error('genre')
                                     <span class="text-red-800 text-sm mt-2"> 
                                         {{$message}}
@@ -94,7 +94,7 @@
                             <div class="col-span-2">
                                 <label for="synopsis" class="block mb-2 text-sm font-medium text-gray-900">Movie Synopsis</label>
                                 <div>
-                                    <textarea id="synopsis" name="synopsis" rows="4" class="block p-2.5 w-full text-sm bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 focus:ring-blue-500 focus:border-blue-500 resize-none" placeholder="Write a brief summary of the movie here..."></textarea>
+                                    <textarea id="synopsis" name="synopsis" rows="4" class="block p-2.5 w-full text-sm bg-gray-50 rounded-lg border border-gray-300 focus:ring-red-500 focus:border-red-500 resize-none" placeholder="Write a brief summary of the movie here...">{{old('synopsis')}}</textarea>
                                     @error('synopsis')
                                         <span class="text-red-800 text-sm mt-2"> 
                                             {{$message}}
@@ -103,8 +103,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" name="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
-                        <button onclick="modal.close(modal)" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
+                        <button type="submit" name="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center">Submit</button>
+                        <button onclick="modal.close(modal)" class="text-gray-500 bg-gray-200 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-10 py-2.5 hover:text-gray-900 focus:z-10">Cancel</button>
                     </form>
                 </div>
             </dialog>
@@ -121,7 +121,7 @@
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <i class='bx bx-film'></i>
                     </div>
-                    <input type="search" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="What movie are you looking for?">
+                    <input type="search" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5" placeholder="What movie are you looking for?">
                 </div>
             </div>
         </div>

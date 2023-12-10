@@ -150,7 +150,7 @@
     <div class="flex flex-col justify-between w-full h-full">
         <ul class="flex flex-col justify-center items-center text-white mt-10 w-full">
             <li class="text-3xl uppercase duration-300 font-bold hover:text-red-500 hover:bg-white py-10 w-full text-center">
-                <a href="{{route('users.contact')}}" class="flex flex-row w-full justify-center items-center gap-4">
+                <a href="{{route('users.profile')}}" class="flex flex-row w-full justify-center items-center gap-4">
                     <i class="bx bxs-cog"></i>
                     <h1>Settings</h1>
                 </a>
@@ -170,7 +170,7 @@
 <!-- NAVBAR -->
 <nav class="w-full py-1 px-8 flex flex-row items-center justify-between max-[600px]:justify-end relative">
 
-    <a href="{{route('movie.index')}}" class="logo-container">
+    <a href="{{route('admin.index')}}" class="logo-container">
         <img src="{{asset('img/RottenPopCorn(Text).png')}}" alt="Rotten Popcorn" class="h-20 max-[600px]:hidden">
         <img src="{{asset('img/RottenPopCorn(Logo).png')}}" alt="Rotten Popcorn" class="h-20 max-[600px]:block hidden">
     </a>
@@ -179,22 +179,24 @@
 
 
         <ul class="max-[600px]:hidden flex flex-row gap-8 items-center text-white">
-            <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="left-start" class="max-[600px]:hidden w-10 h-10 rounded-full cursor-pointer" src="{{asset('img/profile/default.png')}}">
+            <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="left-start" class="max-[600px]:hidden w-10 h-10 rounded-full cursor-pointer" src="{{asset('img/profile/'. Auth::user()->profile_picture)}}">
         </ul>
 
         <!-- Dropdown menu -->
         <div id="userDropdown" class="relative hidden bg-white divide-y divide-red-300 rounded-lg shadow w-44">
             <div class="px-4 py-3 text-sm text-red-900 ">
-                <div class="font-bold">Jayne Vernice</div>
-                <div class="font-medium truncate">Jayne Vernice</div>
+                <div class="font-bold">{{Auth::user()->username}}</div>
+                <div class="font-medium truncate">{{Auth::user()->email}}</div>
             </div>
 
             <div class="py-1">
-                <a href="setting.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white duration-300">Settings</a>
+                <a href="{{route('users.profile')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white duration-300">Settings</a>
             </div>
             <div class="py-1">
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white duration-300" onclick="logout()">Sign out</a>
-
+                <form action="{{route('users.logout')}}" method="POST">
+                    @csrf
+                    <button type="submit" class=" w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white duration-300">Sign out</button>
+                </form>
             </div>
         </div>
     </div>
