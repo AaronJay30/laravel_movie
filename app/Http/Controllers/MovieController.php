@@ -62,7 +62,7 @@ class MovieController extends Controller
             ]);
 
             $searchInput = $validatedData['searchInput'] ?? '';
-            $genreSelect = $validatedData['filterMovie'] ?? '';
+            $genreSelect = $validatedData['genreSelect'] ?? '';
 
             $movies = Movie::query()
                 ->when(!empty($genreSelect), function ($query) use ($genreSelect) {
