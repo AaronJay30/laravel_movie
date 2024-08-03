@@ -84,7 +84,7 @@ class SocialiteController extends Controller
                     'birthday' => $birthday,
                     'socialiteID' => $user->id,
                     'role' => "User",
-                    'password' => encrypt('pogikosobra'),
+                    'password' => encrypt('pogisiarjay'),
 
                 ]);
 

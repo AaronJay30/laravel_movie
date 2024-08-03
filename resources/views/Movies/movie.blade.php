@@ -9,7 +9,7 @@
             <select value="" id="genreSelect" name="genre" class="bg-red-900/100 text-white px-4 border-b-2 border-white focus:ring-red-400">
                 <option value="" selected>Select a genre</option>
                 @foreach ($genres as $genre)
-                <option value="{{ ucwords($genre) }}">{{ ucwords($genre) }}</option>
+                <option value="{{ $genre }}">{{ $genre }}</option>
                 @endforeach
                 
             </select>

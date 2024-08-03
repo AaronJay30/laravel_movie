@@ -71,6 +71,7 @@ class UserController extends Controller
 
         if (auth()->attempt($validated)) {
             $request->session()->regenerate();
+            
             if (auth()->user()->role === 'Admin') {
                 return redirect('/admin')->with('message', 'Welcome back admin!');
             }
